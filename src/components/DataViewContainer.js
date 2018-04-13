@@ -1,13 +1,14 @@
 import React from 'react';
 import {ShotChart} from "./ShotChart"
 import {CountSlider} from "./CountSlider";
-import { Radio, Row, Col} from 'antd';
+import { Radio, Row, Col, Switch} from 'antd';
 const RadioGroup = Radio.Group;
 
 export class DataViewContainer extends React.Component{
     state={
         minCount:2,
         chartType:"hexbin",
+        displayTooltip:true,
     }
 
     onCountSliderChange= (count) =>{
@@ -22,10 +23,25 @@ export class DataViewContainer extends React.Component{
         });
     }
 
+    onTooltipChange = (displayTooltip) =>{
+        this.setState({
+            displayTooltip
+        })
+    }
+
+
+
+
+
     render(){
         return(
             <div className="data-view">
-                <ShotChart playerId={this.props.playerId} minCount={this.state.minCount} chartType={this.state.chartType}/>
+                <ShotChart
+                    playerId={this.props.playerId}
+                    minCount={this.state.minCount}
+                    chartType={this.state.chartType}
+                    displayTooltip={this.state.displayTooltip}
+                />
                 <div className="filters">
                     {this.state.chartType === 'hexbin' ? <CountSlider  onCountSliderChange={this.onCountSliderChange}/> : null}
                     <br/>
@@ -37,6 +53,12 @@ export class DataViewContainer extends React.Component{
                             </RadioGroup>
                         </Col>
                         <Col span={4}>
+                            <Switch
+                                checkedChildren="On"
+                                unCheckedChildren="Off"
+                                defaultChecked
+                                onChange={this. onTooltipChange}
+                            />
                         </Col>
                     </Row>
                 </div>
