@@ -1,5 +1,6 @@
 import { AutoComplete, Input, Icon} from 'antd';
 import React from 'react';
+import nba from 'nba';
 
 
 
@@ -14,16 +15,14 @@ export class SearchBar extends React.Component {
 
     handleSearch = (value) => {
         this.setState({
-            dataSource: !value ? [] : [
-                value,
-                value + value,
-                value + value + value,
-            ],
+            dataSource: !value ? [] : nba.searchPlayers(value).map(player=>player.fullName)
         });
     }
 
+
     render() {
         const { dataSource } = this.state;
+        window.nba = nba;
         return (
             <AutoComplete
                 className="search-bar"
