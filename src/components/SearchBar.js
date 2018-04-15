@@ -9,8 +9,8 @@ export class SearchBar extends React.Component {
         dataSource: [],
     }
 
-    onSelect = (value) => {
-        console.log('onSelect', value);
+    onSelect = (playerName) => {
+        this.props.loadPlayerInfo(playerName);
     }
 
     handleSearch = (value) => {
